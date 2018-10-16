@@ -42,6 +42,21 @@ public class MainJavaSe {
 		// Then you have to start transaction using getTransaction().begin()
 		// Then use persist() to persist both of the categories and finally commit the transaction
 
+        EntityManager entityManager = emf.createEntityManager();
+
+		Category categoryElectronics = new Category();
+		categoryElectronics.setName("Electronics");
+		Category categoryMusical = new Category();
+		categoryMusical.setName("Musical");
+
+        entityManager.getTransaction().begin();
+
+        entityManager.persist(categoryElectronics);
+        entityManager.persist(categoryMusical);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
 		// The code below is just testing code. Do not modify it
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -73,6 +88,14 @@ public class MainJavaSe {
 		// TODO under this line. create new entity manager and start new transaction. Merge
 		// the detached category
 		// into the context and change the name to "Electro"
+
+        EntityManager em2 = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        em.merge(category).setName("Electro");
+
+        em.getTransaction().commit();
+        em.close();
 
 		// The code below is just testing code. Do not modify it
 		EntityManager checkingEm = emf.createEntityManager();
